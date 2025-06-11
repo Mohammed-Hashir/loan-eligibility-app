@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load model
+# Loading the model
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
@@ -19,19 +19,19 @@ LoanAmount = st.number_input("Loan Amount (₹)", min_value=10000)
 Loan_Amount_Term = st.selectbox("Loan Term (in months)", [120, 180, 240, 300, 360])
 Credit_History = st.selectbox("Credit History", ["Good (1.0)", "Bad (0.0)"])
 
-# Encode inputs
+# Encoding the inputs
 gender = 1 if Gender == "Male" else 0
 married = 1 if Married == "Yes" else 0
 dependents = {"0": 0, "1": 1, "2": 2, "3+": 3}[Dependents]
 credit = 1.0 if Credit_History == "Good (1.0)" else 0.0
 
-# Feature array for prediction
+# Featuring array for prediction
 features = np.array([[gender, married, dependents,
                       ApplicantIncome, CoapplicantIncome,
                       LoanAmount, Loan_Amount_Term,
                       credit]])
 
-# Predict
+# Predicting
 if st.button("Check Loan Eligibility"):
     prediction = model.predict(features)[0]
     probability = model.predict_proba(features)[0][1]
