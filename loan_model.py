@@ -4,11 +4,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 import pickle
 
-# Set random seed for consistent results
+# Setting random seed for consistent results
 np.random.seed(42)
 n = 500  # number of records
 
-# Create dummy dataset with ONLY 8 features
+# Creating dummy dataset with only 8 features
 data = pd.DataFrame({
     'Gender': np.random.randint(0, 2, n),
     'Married': np.random.randint(0, 2, n),
@@ -20,7 +20,7 @@ data = pd.DataFrame({
     'Credit_History': np.random.choice([0.0, 1.0], n, p=[0.3, 0.7]),
 })
 
-# Define custom approval logic
+# Defining custom approval logic
 def approve(row):
     total_income = row['ApplicantIncome'] + row['CoapplicantIncome']
     return int(
@@ -30,19 +30,19 @@ def approve(row):
         row['Loan_Amount_Term'] >= 180
     )
 
-# Apply logic
+# Applying logic
 data['Loan_Status'] = data.apply(approve, axis=1)
 
-# Split features and target
+# Splitting features and target
 X = data.drop("Loan_Status", axis=1)
 y = data["Loan_Status"]
 
-# Train the model
+# Training the model
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
-# Save model
+# Saving the model
 with open("model.pkl", "wb") as f:
     pickle.dump(model, f)
 
