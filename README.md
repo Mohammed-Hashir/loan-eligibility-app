@@ -8,7 +8,7 @@ The app allows users to check if their loan application would be approved based 
 
 ### 🚀 Live Demo
 
-🌐 [Click to Use the App](https://your-username.streamlit.app)
+🌐 [Click to Use the App](https://loan-eligibility-app-123.streamlit.app/)
 
 ---
 
